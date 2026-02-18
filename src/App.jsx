@@ -18,10 +18,10 @@
 
 import { useState, useEffect } from "react";
 
-import TaskForm      from "./components/TaskForm";
-import TaskList      from "./components/TaskList";
-import FilterBar     from "./components/FilterBar";
-import ConfirmModal  from "./components/ConfirmModal";
+import TaskForm from "./components/TaskForm";
+import TaskList from "./components/TaskList";
+import FilterBar from "./components/FilterBar";
+import ConfirmModal from "./components/ConfirmModal";
 import { generateId, PRIORITY_ORDER, STORAGE_KEY } from "./utils/constants";
 import "./styles/index.css";
 
@@ -38,11 +38,12 @@ export default function App() {
     }
   });
 
-  const [showForm,    setShowForm]    = useState(false);
-  const [editingTask, setEditingTask] = useState(null); // task being edited
+
+  const [showForm, setShowForm] = useState(false);
+  const [editingTask, setEditingTask] = useState(null);
   const [confirmTask, setConfirmTask] = useState(null); // task pending deletion
-  const [filter,      setFilter]      = useState("all");
-  const [sort,        setSort]        = useState("newest");
+  const [filter, setFilter] = useState("all");
+  const [sort, setSort] = useState("newest");
 
   // ── Persistence ────────────────────────────────────────────────────────────
 
@@ -96,13 +97,13 @@ export default function App() {
   /** Filter then sort the tasks array for display */
   const filteredAndSorted = tasks
     .filter((t) => {
-      if (filter === "active")    return !t.completed;
-      if (filter === "completed") return  t.completed;
+      if (filter === "active") return !t.completed;
+      if (filter === "completed") return t.completed;
       return true;
     })
     .sort((a, b) => {
-      if (sort === "newest")   return b.createdAt - a.createdAt;
-      if (sort === "oldest")   return a.createdAt - b.createdAt;
+      if (sort === "newest") return b.createdAt - a.createdAt;
+      if (sort === "oldest") return a.createdAt - b.createdAt;
       if (sort === "priority") return PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority];
       if (sort === "dueDate") {
         if (!a.dueDate) return 1;
@@ -115,9 +116,9 @@ export default function App() {
 
   /** Task count summary used by the header stats and FilterBar badges */
   const counts = {
-    all:       tasks.length,
-    active:    tasks.filter((t) => !t.completed).length,
-    completed: tasks.filter((t) =>  t.completed).length,
+    all: tasks.length,
+    active: tasks.filter((t) => !t.completed).length,
+    completed: tasks.filter((t) => t.completed).length,
   };
 
   // ── Render ─────────────────────────────────────────────────────────────────
